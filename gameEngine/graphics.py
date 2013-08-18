@@ -47,8 +47,7 @@ class BloodParticle(object):
         cl_image.blit(cl_background, self.rect)
         cl_surface.blit(cl_image, self.rect)
         
-        
-"""
+
 class BloodSplatter(object):
     DENSITY = 25
     def __init__(self, center, density=DENSITY, size=BloodParticle.SIZE):
@@ -74,4 +73,3 @@ class BloodSplatter(object):
             particle_copy.blit(background, self.rect)
             surface.blit(particle_copy, self.rect)
             
-"""
