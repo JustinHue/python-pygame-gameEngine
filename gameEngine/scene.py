@@ -5,6 +5,7 @@ Created on Aug 17, 2013
 '''
 
 import pygame
+import physics
 
 class Scene(object):  
     def __init__(self, (width, height), title, flags = 0, depth = 32):
@@ -15,9 +16,8 @@ class Scene(object):
         self.depth = depth
         self.groups = []
         self.keepGoing = True
-        
-    def setStopBounds(self, bound):
-        self.stopBound = bound
+        self.physicsHandle = physics.PhysicsHandle()
+
 
     def start(self):
         """
@@ -56,13 +56,33 @@ class Scene(object):
     def stop(self):
         self.keepGoing = False
 
+
     def addGroup(self, group):
         self.groups.append(group)
+        """
+            Add sprites in group to physics handle
+        """
+        if self.physicsHandle:
+            for sprite in group:
+                self.physicsHandle.addObject(sprite)
+
+    def addSprite(self, sprite):
+        self.addGroup(pygame.sprite.Group(sprite))
         
 
+    def attachPhysicsHandle(self, handle):
+        self.physicsHandle = handle
+    
+    
     def doEvents(self, event):
         pass
         
+
     def update(self):
-        pass
+        """
+            Apply physics handler physics. All scene objects have been preloaded into the handler.
+        """
+        if self.physicsHandle:
+            self.physicsHandle.update()
+        
     

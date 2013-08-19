@@ -5,6 +5,7 @@ Created on Aug 18, 2013
 '''
 
 import pygame
+import physics
 
 class BasicSprite(pygame.sprite.Sprite):
     def __init__(self, center, image):
@@ -23,17 +24,17 @@ class BasicSprite(pygame.sprite.Sprite):
     
     
 class DynamicSprite(BasicSprite):
-    def __init__(self, center, image, dx=0, dy=0):
+    def __init__(self, center, image, speed=0, dir=0):
         BasicSprite.__init__(self, center, image)
-        self.dx = dx
-        self.dy = dy
+        self.dir = dir
+        self.speed = speed
+        self.dx, self.dy = physics.calculateComponents(self.speed, self.dir)
         
-    
+        
     def update(self):
-        self.rect.x += self.dx
-        self.rect.y += self.dy
+        pass
         
         
     def doEvents(self, event):
         pass
-        
+    

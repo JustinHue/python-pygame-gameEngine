@@ -34,12 +34,22 @@ def init():
    ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"""
 class BloodParticle(sprite.DynamicSprite):
     SIZE = 1
-    def __init__(self, center):
-        sprite.DynamicSprite.__init__(self, center, BLOOD_PARTICLE_SURFACE)
+    def __init__(self, center, speed=0, dir=0):
+        sprite.DynamicSprite.__init__(self, center, BLOOD_PARTICLE_SURFACE, speed, dir)
 
-
-
+    
 class BloodSplatter(pygame.sprite.Group):
-    def __init__(self):
-        pygame.sprite.Group.__init__()
+    DENSITY=100
+    SPEED_MAX = 20
+    def __init__(self, center, density=DENSITY):
+        pygame.sprite.Group.__init__(self)
+        self.density = density
+        bloodCount = 0
+        while (bloodCount < density):
+            speed = random.random() * self.SPEED_MAX
+            dir = random.randint(0, 360)
+            self.add(BloodParticle(center, speed, dir))
+            bloodCount += 1
+
         
+
