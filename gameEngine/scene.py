@@ -13,9 +13,8 @@ class Scene(object):
         self.title = title
         self.flags = flags
         self.depth = depth
-        self.objects = []
+        self.groups = []
         self.keepGoing = True
-
         
     def setStopBounds(self, bound):
         self.stopBound = bound
@@ -41,21 +40,26 @@ class Scene(object):
                 if event.type == pygame.QUIT:
                     self.stop()
                 self.doEvents(event)
-                    
+                for group in self.groups:
+                    for sprite in group:
+                        sprite.doEvents(event)
+                        
+
             self.update()
-            for object in self.objects:
-                object.update()
-                object.clear(self.screen, self.background)
-                object.render(self.screen)
+            for group in self.groups:
+                group.clear(self.screen, self.background)
+                group.update()
+                group.draw(self.screen)
 
             pygame.display.flip()
 
     def stop(self):
         self.keepGoing = False
 
-    def addObject(self, object):
-        self.objects.append(object)
+    def addGroup(self, group):
+        self.groups.append(group)
         
+
     def doEvents(self, event):
         pass
         
