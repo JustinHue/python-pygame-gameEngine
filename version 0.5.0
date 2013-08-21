@@ -1,0 +1,8 @@
+Alpha 0.5.0
+
+-> Fixed execute order for game interpreter and execution return values for all interpreters have been changed
+-> Change game interpreter to sequential interpreter, which executes interpreters via a list
+
+****
+-> Screw it. Only one interpreter object. Very general and does almost nothing. Just a place holder. 
+
