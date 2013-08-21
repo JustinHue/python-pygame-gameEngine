@@ -33,13 +33,13 @@ def init():
     Object Definitions
    ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"""
 class BloodParticle(sprite.DynamicSprite):
-    SIZE = 1
+    SIZE = 2
     def __init__(self, center, speed=0, dir=0):
         sprite.DynamicSprite.__init__(self, center, BLOOD_PARTICLE_SURFACE, speed, dir)
 
     
 class BloodSplatter(pygame.sprite.Group):
-    DENSITY=100
+    DENSITY=25
     SPEED_MAX = 20
     def __init__(self, center, density=DENSITY):
         pygame.sprite.Group.__init__(self)

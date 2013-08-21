@@ -1,4 +1,4 @@
-Alpha 0.3.0	
+Alpha 0.3.0
 
 -> Added physics handle with gravity implemented
 -> Physics handle can be attached to scene object and all sprites will be added automatically to the physics handle

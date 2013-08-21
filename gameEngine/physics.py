@@ -5,7 +5,7 @@ Created on Aug 18, 2013
 '''
 
 import math
-
+import sprite
 
 """
     Physics Constants
@@ -44,13 +44,34 @@ def applyForce(dx, dy, speed, dir, amt, angle):
     return dx, dy, speed, dir
 
 
-class PhysicsHandle():
+     
+    
+def collidesWith(obj, obj2):
+    pass
+
+
+def collidesWith(obj, center, (width, height)):
+    pass
+    
+    
+
+    
+    
+class PhysicsInterpreter():
     GRAVITY_DIR_LEFT = 180
     GRAVITY_DIR_TOP = 90
     GRAVITY_DIR_RIGHT = 0
     GRAVITY_DIR_BOTTOM = 270
-    def __init__(self, gravityForce=BASIC_GRAVITY, gravityDir=GRAVITY_DIR_BOTTOM):
+    BOUND_NONE = 0
+    BOUND_LEFT = 1
+    BOUND_TOP = 2
+    BOUND_RIGHT = 4
+    BOUND_BOTTOM = 8
+    BOUND_ALL = BOUND_LEFT | BOUND_TOP | BOUND_RIGHT | BOUND_BOTTOM
+    def __init__(self, scene, gravityForce=BASIC_GRAVITY, gravityDir=GRAVITY_DIR_BOTTOM, bounds=BOUND_ALL):
+        self.scene = scene
         self.gravityDir = gravityDir
+        self.bounds = bounds
         self.gravityForce = gravityForce
         self.objects = []
         
@@ -59,15 +80,49 @@ class PhysicsHandle():
         self.objects.append(obj)
         
         
+    def setBounds(self, bounds):
+        self.bounds = bounds
+        
+
     def update(self):
         for obj in self.objects:
-            """
-                Apply gravity force to objects
+            if (obj.hwnd == sprite.INTERNAL_HWND_ID_1):
+                """
+                    Apply gravity force to objects
+                """                 
+                obj.dx, obj.dy, obj.speed, obj.dir = applyForce(obj.dx, obj.dy, obj.speed, obj.dir, 
+                                                                self.gravityForce, self.GRAVITY_DIR_BOTTOM)
+
+                """
+                    Move objects
+                """
+                obj.rect.x, obj.rect.y = move(obj.rect.x, obj.rect.y, obj.dx, obj.dy)
+                
             """ 
-            obj.dx, obj.dy, obj.speed, obj.dir = applyForce(obj.dx, obj.dy, obj.speed, obj.dir, 
-                                                            self.gravityForce, self.GRAVITY_DIR_BOTTOM)
+                Check in and out bounds
             """
-                Move objects
-            """
-            obj.rect.x, obj.rect.y = move(obj.rect.x, obj.rect.y, obj.dx, obj.dy)
-            
+            # Extract bound info
+            exBounds = (self.bounds & self.BOUND_LEFT, self.bounds & self.BOUND_TOP,
+                        self.bounds & self.BOUND_RIGHT, self.bounds & self.BOUND_BOTTOM)
+
+            if (exBounds[0]):
+                if (obj.rect.right < 0):
+                    pass
+                if (obj.rect.left < 0):
+                    obj.rect.left = 0
+            if (exBounds[1]):
+                if (obj.rect.bottom < 0):
+                    pass
+                if (obj.rect.top < 0):
+                    obj.rect.top = 0
+            if (exBounds[2]):
+                if (obj.rect.left > self.scene.width):
+                    pass
+                if (obj.rect.right > self.scene.width):
+                    obj.rect.right = self.scene.width
+            if (exBounds[3]):
+                if (obj.rect.top > self.scene.height):
+                    pass
+                if (obj.rect.bottom > self.scene.height):
+                    obj.rect.bottom = self.scene.height
+                    

@@ -16,7 +16,7 @@ class Scene(object):
         self.depth = depth
         self.groups = []
         self.keepGoing = True
-        self.physicsHandle = physics.PhysicsHandle()
+        self.physicsHandle = physics.PhysicsInterpreter(self)
 
 
     def start(self):
