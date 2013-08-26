@@ -1,0 +1,11 @@
+Alpha 0.3.0
+
+-> Added physics handle with gravity implemented
+-> Physics handle can be attached to scene object and all sprites will be added automatically to the physics handle
+-> Added add sprite method to scene
+-> Added move, calculateVector,	applyForce, calculateComponent functionality to the physics module.
+-> Physics handle now uses functions in the physics module
+-> Added different gravity constants (EARTH_SURFACE_GRAVITY=9.81, MOON_SURFACE_GRAVITY=1.60, BASIC_GRAVITY=1.00) Default is BASIC_GRAVITY
+-> Blood splatter is fully functional. Simply add the Blood Splatter group to the scene
+
+

@@ -1,0 +1,16 @@
+Alpha 0.4.0
+
+-> Added map module
+-> MapLoader and TileMapLoader class objects added to the map module
+-> Change PhysicsHandler to PhysicsInterpreter
+-> Physics Interpreter now takes scene as an argument and performs bound checks on all sides (LEFT, TOP, RIGHT, BOTTOM)
+
+****
+Changed game engine idea completely. Basing engine on interpreter objects and them reading set fields
+
+-> Added interpreter module with interpreter and game interpreter classes
+-> Game interpreter and scene interpreter are now functional.
+
+NOTE: Game Interpreter executes Splash, Menu, Play, and Game Over interpreters in that order.
+
+-> Added init and deinit methods to interpreter object
